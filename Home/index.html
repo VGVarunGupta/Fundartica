@@ -1,0 +1,282 @@
+<?php 
+session_start();
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="">
+	<link rel="icon" type="image/png" href="favicon.ico">
+	<title>Home | Fundartica</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" href="demo.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	<script src="js/zepto/zepto.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/flux.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" charset="utf-8">
+		$(function(){
+			if(!flux.browser.supportsTransitions)
+				alert("Flux Slider requires a browser that supports CSS3 transitions");
+				
+			window.f = new flux.slider('#slider', {
+				autoplay: false,
+				pagination: false
+			});
+			
+			// Setup a listener for user requested transitions
+			$('div#transitions').bind('click', function(event){
+				event.preventDefault();
+
+				// If this is a 3D transform and the browser doesn't support 3D then inform the user
+				if($(event.target).closest('ul').is('ul#trans3d') && !flux.browser.supports3d)
+				{
+					alert("The '"+event.target.innerHTML+"' transition requires a browser that supports 3D transforms");
+					return;
+				}
+				
+				window.f.next(event.target.href.split('#')[1]);
+			});
+		});
+	</script>
+	<script type="text/javascript" src="jquery.js"></script>
+	<script type="text/javascript">
+		document.addEventListener("DOMContentLoaded", init, false);
+		function init()
+		{
+			var canvas = document.getElementById("canvas");
+			canvas.addEventListener("mousedown", getPosition, false);
+		}
+		function getPosition(event)
+		{
+			var x = new Number();
+			var y = new Number();
+			var canvas = document.getElementById("canvas");
+			if (event.x != undefined && event.y != undefined)
+			{
+				x = event.x;
+				y = event.y;
+			}
+			else // Firefox method to get the position
+			{
+				x = event.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+				y = event.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+			}
+			x -= canvas.offsetLeft;
+			y -= canvas.offsetTop;
+			if ((x<342 || x>1024) || (y<242 || y>448) && document.getElementById("mailver").style.visibility == "visible")
+			{
+				document.getElementById("mailver").style.visibility = "hidden";
+				document.getElementById("blank_field").style.zIndex = "1";
+				document.getElementById("mailver").style.zIndex = "-1";
+				document.getElementById("blank_field").style.opacity = "1";
+				document.getElementById("logo").style.opacity = "1";
+			}
+			if ((x<451 || x>915) && document.getElementById("wrapper").style.display == "block")
+			{
+				document.getElementById("wrapper").style.display = "none";
+				document.getElementById("blank_field").style.zIndex = "1";
+				document.getElementById("wrapper").style.zIndex = "-1";
+				document.getElementById("blank_field").style.opacity = "1";
+				document.getElementById("logo").style.opacity = "1";
+			}
+		}
+	</script>	
+	<script>
+		function show()  
+		{
+			document.getElementById("blank_field").style.opacity = "0.25";
+			document.getElementById("logo").style.opacity = "0.25";
+			document.getElementById("mailver").style.visibility = "visible";
+			document.getElementById("blank_field").style.zIndex = "-1";
+			document.getElementById("mailver").style.zIndex = "1";
+		}
+		function show1()  
+		{
+			document.getElementById("blank_field").style.opacity = "0";
+			document.getElementById("logo").style.opacity = "0";
+			document.getElementById("blank_field").style.zIndex = "-1";
+			document.getElementById("wrapper").style.zIndex = "1";
+			document.getElementById("wrapper").style.display = "block";
+		}
+    </script>
+</head>
+<body>
+	<div id="dash">
+		<a href="#"><img src="logo.png" width="100" height="50" style="float:left;"></a>
+		<div style="float:right; width: 70%;">
+			<input type="text" id="search" name="search" class="search"></input>
+			<div class="menu" id="home" name="home"><img src="home.png" width="18" height="20"></div>
+			<nav>
+				<ul>
+					<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ABOUT<img src="menu_arrow.png">
+						<ul>
+							<a href="#"><li>Fundartica</li></a>
+							<a href="#"><li>Mission</li></a>
+							<a href="#"><li>Team</li></a>
+						</ul>
+					</li>
+					<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PROJECTS</li>
+				</ul>
+			</nav>
+			<div class="menu" style="margin-top: -7px; cursor: pointer;">LOGIN / SIGNUP</div>
+		</div>
+	</div>
+	
+	<section class="container">
+		<div id="slidercontainer">
+			<div id="slider">
+				<img src="pic (1).jpg" alt="" title="This is picture 1 for you<br>and I hope you like it"/>
+				<img src="pic (2).jpg" alt="" title="This is picture 2 for you<br>and I hope you like it"/>
+				<img src="pic (3).jpg" alt="" title="This is picture 3 for you<br>and I hope you like it"/>
+				<img src="pic (4).jpg" alt="" title="This is picture 4 for you<br>and I hope you like it"/>
+			</div>
+		</div>
+	</section>
+	
+	<div id="wrapper">
+		<div style="background: #ececec; padding: 10px 10px; border-radius: 4px;">
+			<a href=""><div class="button" style="max-width: 20%; float: right;" id="learn">LEARN MORE</div></a>
+			<div style="width:73%;" class="label">Curious about how we work ?</div>
+			<div style="width:73%; padding-top:5px;" class="subtext">afjabvus vufvjdbvb fvbdjkblsvjs bvsjvskk</div>
+		</div>
+		<div class="block" style="margin-left:0px;">
+			<div class="text"><p align=center>what is crowdfunding?</p></div>
+			<div class="subtext"><p align=center> Quisque id tellus quis risus vehicula vehicula ut turpis. In eros nulla, placerat vitae at, vehicula ut nunc. </p></div>
+		</div>
+		<div class="block">
+			<div class="text"><p align=center>how it works?</p></div>
+			<div class="subtext"><p align=center> Quisque id tellus quis risus vehicula vehicula ut turpis. In eros nulla, placerat vitae at, vehicula ut nunc. </p></div>
+		</div>
+		<div class="block">
+			<div class="text"><p align=center>how you do it?</p></div>
+			<div class="subtext"><p align=center> Quisque id tellus quis risus vehicula vehicula ut turpis. In eros nulla, placerat vitae at, vehicula ut nunc. </p></div>
+		</div>
+		<div class="block" style="margin-right:0px;">
+			<div class="text"><p align=center>why choose fundartica?</p></div>
+			<div class="subtext"><p align=center> Quisque id tellus quis risus vehicula vehicula ut turpis. In eros nulla, placerat vitae at, vehicula ut nunc. </p></div>
+		</div>
+		<div align=center style="width:22%; margin-right: 2%; float: left; margin-top:-35px;"><a href=""><div class="button" id="read1">read more</div></a></div>		
+		<div align=center style="width:22%; margin-left: 2%; margin-right: 2%; float: left; margin-top:-35px;"><a href=""><div class="button" id="read2">read more</div></a></div>
+		<div align=center style="width:22%; margin-left: 2%; margin-right: 2%; float: left; margin-top:-35px;"><a href=""><div class="button" id="read3">read more</div></a></div>
+		<div align=center style="width:22%; margin-left: 2%; float: left; margin-top:-35px;"><a href=""><div class="button" id="read4">read more</div></a></div>
+		<div style="background: #ececec; margin-top: 380px; padding: 10px 0 10px 0; border-radius: 4px;">
+			<div style="font-weight:bold; text-align: center;" class="label">FEATURED PROJECTS</div>
+			<div style="text-align: center;" class="subtext">Capacitance cascading integer reflective interface data development high bus cache dithering transponder.</div>
+			<div style="width:78%; float:right;">
+				<div class="project" id="project1" style="margin-left:0px;">
+					<img src="proj1.png">
+					<div class="info">
+					</div>
+				</div>
+				<div class="project" id="project2">
+					<img src="proj2.png">
+					<div class="info">
+					</div>
+				</div>
+				<div class="project" id="project3" style="margin-right:0px;">
+					<img src="proj3.png">
+					<div class="info">
+					</div>
+				</div>
+				<div class="project" id="project4" style="margin-left:0px; margin-top: 35px;">
+					<img src="proj4.png">
+					<div class="info">
+					</div>
+				</div>
+				<div class="project" id="project5" style="margin-top: 35px;">
+					<img src="proj5.png">
+					<div class="info">
+					</div>
+				</div>
+				<div class="project"  id="project6" style="margin-right:0px; margin-top: 35px;">
+					<img src="proj6.png">
+					<div class="info">
+					</div>
+				</div>		
+				<a href=""><div class="button" id="next_proj" style="float:right; padding: 7px 14px; display: inline-block; margin: 63px 0px 0px 0px;"><img src="arrow_right.png"></div></a>
+				<a href=""><div class="button2" id="back_proj" style="float:right; padding: 7px 14px; display: inline-block; margin: 63px 20px 0px 0px;"><img src="arrow_left.png"></div></a>
+			</div>		
+			<div class="categories">
+				<div class="text" style="padding: 0px 0px 20px 50px;">Categories</div>
+				<div><input type="checkbox" name="category" class="css-checkbox" id="art"><label for="art" class="css-label" style="padding-right:10px;">Art<br></label></div>
+				<div><input type="checkbox" name="category" class="css-checkbox" id="culture"><label for="culture" class="css-label">Culture</label></div>
+				<div><input type="checkbox" name="category" class="css-checkbox" id="education"><label for="education" class="css-label">Education</label></div>
+				<div><input type="checkbox" name="category" class="css-checkbox" id="social_initiatives"><label for="social_initiatives" class="css-label">Social Initiatives</label></div>
+				<div><input type="checkbox" name="category" class="css-checkbox" id="events"><label for="events" class="css-label">Events</label></div>
+				<div><input type="checkbox" name="category" class="css-checkbox" id="drama"><label for="drama" class="css-label">Drama / Performing Arts</label></div>
+				<div><input type="checkbox" name="category" class="css-checkbox" id="sports"><label for="sports" class="css-label">Sports</label></div>
+				<div><input type="checkbox" name="category" class="css-checkbox" id="publishing"><label for="publishing" class="css-label">Publishing</label></div>
+				<div><input type="checkbox" name="category" class="css-checkbox" id="startups"><label for="startups" class="css-label">Start-ups</label></div>
+				<div><input type="checkbox" name="category" class="css-checkbox" id="technology"><label for="technology" class="css-label">Technology</label></div>
+				<div><input type="checkbox" name="category" class="css-checkbox" id="student"><label for="student" class="css-label">Student Projects</label></div>
+				<div><input type="checkbox" name="category" class="css-checkbox" id="misc"><label for="misc" class="css-label">Miscellaneous</label></div>
+				<br><br><br>
+				<a href=""><div class="linktext" style="padding-top:15px; padding-left:50px;">All projects</div></a>
+				<a href=""><div class="linktext" style="padding-top:15px; padding-left:50px;">Recently added</div></a>
+				<a href=""><div class="linktext" style="padding-top:15px; padding-left:50px;">Popular</div></a>
+				<a href=""><div class="linktext" style="padding-top:15px; padding-left:50px;">Most funded</div></a>
+				<a href=""><div class="linktext" style="padding-top:15px; padding-left:50px;">Closing shortly</div></a>
+				<br><br>
+				<div align=center style="margin-left:auto; margin-right:auto;"><a href=""><div class="button">view all projects</div></a></div>
+			</div>
+			<hr style="width:75%; border: 1px solid #e1e2e2; margin-top:-45px; margin-bottom:30px;">
+		</div>
+		<div style="font-weight:bold; text-align: center;" class="label"><br>OUR SUCCESS STORIES</div>
+		<div style="text-align: center;" class="subtext">Capacitance cascading integer reflective interface data development high bus cache dithering transponder.</div>
+		<div class="story" id="story1" style="margin-right: 2%;">
+			<div style="width: 55%; height: 250px; overflow: hidden; float: left;"><img src="proj4.png"></div>
+			<div style="width: 45%; height: 250px; float: left; background: #ffffff;">
+				<div style="margin-top: 30px; margin-left: 30px;"><img src="quotes.png"></div><br>
+				<div class="subtext"style="margin: 20px; text-align: center;">sjdfskdjfnf cadmcdks sd asndaskjfnafjanf.kjabff jdfsdf sdhfsd jfsdf sdfjaefkafad jfjefefe'f' ld. ffjsddsfksdmsald,as,wawd fjsfweoekowqkpqw[qfie rdhejwirjphwaodjwaq</div>
+			</div>
+		</div>
+		<div class="story" id="story2" style="margin-left: 2%;">
+			<div style="width: 55%; height: 250px; overflow: hidden; float: left;"><img src="proj4.png"></div>
+			<div style="width: 45%; height: 250px; float: left; background: #ffffff;">
+				<div style="margin-top: 30px; margin-left: 30px;"><img src="quotes.png"></div><br>
+				<div class="subtext"style="margin: 20px; text-align: center;">sjdfskdjfnf cadmcdks sd asndaskjfnafjanf.kjabff jdfsdf sdhfsd jfsdf sdfjaefkafad jfjefefe'f' ld. ffjsddsfksdmsald,as,wawd fjsfweoekowqkpqw[qfie rdhejwirjphwaodjwaq</div>
+			</div>
+		</div>
+		<a href=""><div class="button" id="next_story" style="float:right; padding: 7px 14px; display: inline-block; margin: 20px 0px 0px 0px;"><img src="arrow_right.png"></div></a>
+		<a href=""><div class="button2" id="back_story" style="float:right; padding: 7px 14px; display: inline-block; margin: 20px 20px 0px 0px;"><img src="arrow_left.png"></div></a>
+	</div>
+	
+	<div id="footer">
+		<div class="section1">
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec .
+			<span style="line-height:250%;"><br><br>Phone:<br>Email:</span>
+		</div>
+		<div class="section2">
+			<div class="text" style="font-size:1.5em; padding-left:0px;">Company<br><br></div>
+			<img src="arrow_right.png" width="5" height="5">&nbsp;&nbsp;&nbsp;About<br>
+			<img src="arrow_right.png" width="5" height="5">&nbsp;&nbsp;&nbsp;FAQ<br>
+			<img src="arrow_right.png" width="5" height="5">&nbsp;&nbsp;&nbsp;Contact<br>
+			<img src="arrow_right.png" width="5" height="5">&nbsp;&nbsp;&nbsp;Terms<br>
+			<img src="arrow_right.png" width="5" height="5">&nbsp;&nbsp;&nbsp;Privacy<br>
+			<img src="arrow_right.png" width="5" height="5">&nbsp;&nbsp;&nbsp;Testimonials<br>
+		</div>
+		<div class="section2">
+			<div class="text" style="font-size:1.5em; padding-left:0px;">Community<br><br></div>
+			<img src="arrow_right.png" width="5" height="5">&nbsp;&nbsp;&nbsp;Blog<br>
+			<img src="arrow_right.png" width="5" height="5">&nbsp;&nbsp;&nbsp;Forum<br>
+			<img src="arrow_right.png" width="5" height="5">&nbsp;&nbsp;&nbsp;Support<br>
+			<img src="arrow_right.png" width="5" height="5">&nbsp;&nbsp;&nbsp;Newsletter<br>
+		</div>
+		<div class="section3">
+			<div style="font-size:1.5em; padding: 10px 10px 0px 0px; color:#ffffff;">from the <b>BLOG</b></div>
+			<div style="position:absolute;">
+			<img src="picture.png" style="background: #278997; float:left; padding:20px; margin-top:20px; border-radius:4px;">
+			<div style="float:left; margin-left:20px; margin-top:20px; width:70%;">Lorem ipsum dolor sit amet, consectetur adipiscing elit<br><span style="color:#278997;">26 July, 2013</span></div>
+			</div>
+			<br><br>
+			<div style="position:absolute;">
+			<img src="picture.png" style="background: #278997; float:left; padding:20px; margin-top:80px; border-radius:4px;">
+			<div style="float:left; margin-left:20px; margin-top:80px; width:70%;">Lorem ipsum dolor sit amet, consectetur adipiscing elit<br><span style="color:#278997;">26 July, 2013</span></div>
+			</div>
+		</div>
+		<div style="background:#2c9aaa; margin-top:300px;">
+		<img src="facebook.png" style="padding-left:80%; margin:1%;">
+		<img src="gplus.png" style="margin:1%;">
+		<img src="twitter.png" style="margin:1%;">
+		</div>
+	</div>
+</body>
+</html>
